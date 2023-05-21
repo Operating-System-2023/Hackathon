@@ -74,7 +74,7 @@ namespace Hackathon
         private void create()
         {
             Thread[] arrayThreads = new Thread[this.numbakers + this.numcustomers];
-            ConcurrentQueue<int> buffer = new ConcurrentQueue<int>();
+            ConcurrentQueue<String> buffer = new ConcurrentQueue<String>();
             for (int i = 0; i < this.numbakers; i++)
             {
                 arrayThreads[i] = new Thread(() => produce(buffer));
@@ -94,18 +94,21 @@ namespace Hackathon
 
         }
 
-        private void produce(ConcurrentQueue<int> buffer)
+        private void produce(ConcurrentQueue<String> buffer)
         {
             Thread.Sleep(this.bakerate);
             simulator1.showProduce();
-            buffer.Enqueue(1);
+            Random r = new Random();
+            int num = r.Next(1,11);
+            buffer.Enqueue("cake"+num);
 
         }
 
-        private void consume(ConcurrentQueue<int> buffer)
+        private void consume(ConcurrentQueue<String> buffer)
         {
             Thread.Sleep(this.customerate);
-            if (buffer.TryDequeue(out int date))
+            String cake= String.Empty;
+            if (buffer.TryDequeue(out cake))
                 simulator1.showConsume();
 
         }
