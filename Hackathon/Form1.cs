@@ -1,6 +1,7 @@
 using Hackathon.Properties;
 using System.Collections.Concurrent;
 
+
 namespace Hackathon
 {
     public partial class Form1 : Form
@@ -13,6 +14,7 @@ namespace Hackathon
         public Form1()
         {
             InitializeComponent();
+
 
         }
 
@@ -59,9 +61,11 @@ namespace Hackathon
                 numcustomers = int.Parse(numCustomers.Text);
                 bakerate = int.Parse(bakerRate.Text);
                 customerate = int.Parse(customerRate.Text);
-                
+
                 Controls.Add(simulator1);
                 simulator1.Visible = true;
+                simulator1.BringToFront();
+                //this.SendToBack();
                 create();
 
             }
@@ -74,7 +78,7 @@ namespace Hackathon
         private void create()
         {
             Thread[] arrayThreads = new Thread[this.numbakers + this.numcustomers];
-            ConcurrentQueue<String> buffer = new ConcurrentQueue<String>();
+            ConcurrentQueue<int> buffer = new ConcurrentQueue<int>();
             for (int i = 0; i < this.numbakers; i++)
             {
                 arrayThreads[i] = new Thread(() => produce(buffer));
@@ -94,22 +98,22 @@ namespace Hackathon
 
         }
 
-        private void produce(ConcurrentQueue<String> buffer)
+        private void produce(ConcurrentQueue<int> buffer)
         {
             Thread.Sleep(this.bakerate);
             simulator1.showProduce();
             Random r = new Random();
-            int num = r.Next(1,11);
-            buffer.Enqueue("cake"+num);
+            int num = r.Next(1, 11);
+            buffer.Enqueue(num);
+            simulator1.ShowCake(num);
 
         }
 
-        private void consume(ConcurrentQueue<String> buffer)
+        private void consume(ConcurrentQueue<int> buffer)
         {
             Thread.Sleep(this.customerate);
-            String cake= String.Empty;
-            if (buffer.TryDequeue(out cake))
-                simulator1.showConsume();
+            if (buffer.TryDequeue(out int cake))
+                simulator1.hideCake(cake);
 
         }
 

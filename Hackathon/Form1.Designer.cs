@@ -29,12 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            panel1 = new Panel();
-            simulator1 = new Properties.Simulator();
             panel2 = new Panel();
             label1 = new Label();
-            panel3 = new Panel();
-            start = new Button();
             pictureBox1 = new PictureBox();
             label2 = new Label();
             label3 = new Label();
@@ -44,30 +40,14 @@
             numCustomers = new TextBox();
             bakerRate = new TextBox();
             customerRate = new TextBox();
+            start = new Button();
+            panel3 = new Panel();
+            simulator1 = new Properties.Simulator();
+            panel1 = new Panel();
             panel2.SuspendLayout();
-            panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.RosyBrown;
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1680, 60);
-            panel1.TabIndex = 0;
-            panel1.Paint += panel1_Paint;
-            // 
-            // simulator1
-            // 
-            simulator1.Location = new Point(-389, 44);
-            simulator1.Margin = new Padding(6, 5, 6, 5);
-            simulator1.Name = "simulator1";
-            simulator1.Size = new Size(1511, 647);
-            simulator1.TabIndex = 1;
-            simulator1.Visible = false;
-            simulator1.Load += simulator1_Load;
             // 
             // panel2
             // 
@@ -91,32 +71,10 @@
             label1.Text = "Patisserie";
             label1.Click += label1_Click;
             // 
-            // panel3
-            // 
-            panel3.BackColor = Color.RosyBrown;
-            panel3.Controls.Add(start);
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 641);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1680, 215);
-            panel3.TabIndex = 2;
-            // 
-            // start
-            // 
-            start.BackColor = Color.White;
-            start.FlatAppearance.MouseOverBackColor = Color.LightGray;
-            start.Location = new Point(369, 39);
-            start.Name = "start";
-            start.Size = new Size(294, 99);
-            start.TabIndex = 0;
-            start.Text = "start";
-            start.UseVisualStyleBackColor = false;
-            start.Click += start_Click;
-            // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1131, 231);
+            pictureBox1.Location = new Point(1162, 128);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(461, 493);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -191,11 +149,57 @@
             customerRate.Size = new Size(319, 61);
             customerRate.TabIndex = 10;
             // 
+            // start
+            // 
+            start.BackColor = Color.White;
+            start.FlatAppearance.MouseOverBackColor = Color.LightGray;
+            start.Location = new Point(369, 39);
+            start.Name = "start";
+            start.Size = new Size(294, 99);
+            start.TabIndex = 0;
+            start.Text = "start";
+            start.UseVisualStyleBackColor = false;
+            start.Click += start_Click;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.RosyBrown;
+            panel3.Controls.Add(simulator1);
+            panel3.Controls.Add(start);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(0, 641);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1680, 215);
+            panel3.TabIndex = 2;
+            // 
+            // simulator1
+            // 
+            simulator1.AutoSize = true;
+            simulator1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            simulator1.AutoValidate = AutoValidate.EnableAllowFocusChange;
+            simulator1.ForeColor = Color.DimGray;
+            simulator1.Location = new Point(0, 0);
+            simulator1.Margin = new Padding(0);
+            simulator1.Name = "simulator1";
+            simulator1.Size = new Size(3545, 1186);
+            simulator1.TabIndex = 1;
+            simulator1.Visible = false;
+            simulator1.Load += simulator1_Load;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.RosyBrown;
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1680, 60);
+            panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint;
+            // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1680, 856);
-            Controls.Add(simulator1);
             Controls.Add(customerRate);
             Controls.Add(bakerRate);
             Controls.Add(numCustomers);
@@ -215,8 +219,9 @@
             Text = "Form1";
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
