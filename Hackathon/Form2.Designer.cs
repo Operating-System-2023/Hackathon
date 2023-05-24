@@ -128,25 +128,25 @@
             switch (index)
             {
                 case 1:
-                    return cake1.Visible; break;
+                    return cake1.Visible;
                 case 2:
-                    return cake2.Visible; break;
+                    return cake2.Visible;
                 case 3:
-                    return cake3.Visible; break;
+                    return cake3.Visible;
                 case 4:
-                    return cake4.Visible; break;
+                    return cake4.Visible;
                 case 5:
-                    return cake5.Visible; break;
+                    return cake5.Visible;
                 case 6:
-                    return cake6.Visible; break;
+                    return cake6.Visible;
                 case 7:
-                    return cake7.Visible; break;
+                    return cake7.Visible;
                 case 8:
-                    return cake8.Visible; break;
+                    return cake8.Visible;
                 case 9:
-                    return cake9.Visible; break;
+                    return cake9.Visible;
                 case 10:
-                    return cake10.Visible; break;
+                    return cake10.Visible;
                 default:
                     break;
 
