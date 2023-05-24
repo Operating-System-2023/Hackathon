@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,15 +8,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Hackathon
 {
     public partial class Form2 : Form
     {
         private DateTime startTime;
-
-        public Form2()
+        private int numbakers;
+        private int numcustomers;
+        private int bakerate;
+        private int customerate;
+        public Form2(int numB,int numC, int rateB, int rateC)
         {
+            this.numbakers = numB;
+            this.numcustomers = numC;
+            this.bakerate = rateB;
+            this.customerate = rateC;
+
             InitializeComponent();
             startTime = DateTime.Now;
         }
@@ -23,6 +33,61 @@ namespace Hackathon
         private void Form2_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            create();
+;       }
+
+        private void create()
+        {
+            
+
+            ConcurrentQueue<int> buffer = new ConcurrentQueue<int>();
+            while (true)
+            {
+                for (int i = 0; i < this.numbakers; i++)
+                {
+                    Thread baker = new Thread(() => produce(buffer));
+                    baker.Start();
+                }
+                for (int i = 0; i < this.numcustomers; i++)
+                {
+                    Thread customer = new Thread(() => consume(buffer));
+                    customer.Start();
+                }
+            }
+
+
+        }
+        private object bufferLock = new object();
+        private void produce(ConcurrentQueue<int> buffer)
+        {
+            Thread.Sleep(this.bakerate);
+            Random r = new Random();
+            int num = r.Next(1, 11);
+
+            lock (bufferLock)
+            {
+                buffer.Enqueue(num);
+                ShowCake(num);
+            }
+
+
+        }
+
+        private void consume(ConcurrentQueue<int> buffer)
+        {
+            Thread.Sleep(this.customerate);
+            lock (bufferLock)
+            {
+                if (buffer.TryDequeue(out int cake))
+                {
+                    if (checkCake(cake))
+                        hideCake(cake);
+                    else
+                        buffer.Enqueue(cake);
+                }
+            }
+
+
         }
 
         private void cake1_Click(object sender, EventArgs e)

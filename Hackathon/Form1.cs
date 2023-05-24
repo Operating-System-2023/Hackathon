@@ -12,13 +12,10 @@ namespace Hackathon
         private int numcustomers;
         private int bakerate;
         private int customerate;
-        private Form2 window = new Form2();
 
         public Form1()
         {
             InitializeComponent();
-
-
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -64,12 +61,9 @@ namespace Hackathon
                 numcustomers = int.Parse(numCustomers.Text);
                 bakerate = int.Parse(bakerRate.Text);
                 customerate = int.Parse(customerRate.Text);
-                Thread t = new Thread(() => create());
+                Form2 window = new Form2(numbakers,numcustomers,bakerate,customerate);
+                Thread t = new Thread(() => window.ShowDialog());
                 t.Start();
-                window.ShowDialog();
-                t.Join();
-                
-
             }
             catch (Exception xe)
             {
@@ -77,57 +71,7 @@ namespace Hackathon
             }
         }
 
-        private void create()
-        {
-            ConcurrentQueue<int> buffer = new ConcurrentQueue<int>();
-            while(true)
-            {
-                for (int i = 0; i < this.numbakers; i++)
-                {
-                    Thread baker = new Thread(() => produce(buffer));
-                    baker.Start();
-                }
-                for (int i = 0; i < this.numcustomers; i++)
-                {
-                    Thread customer = new Thread(() => consume(buffer));
-                    customer.Start();
-                }
-            }
-
-
-        }
-        private object bufferLock = new object();
-        private void produce(ConcurrentQueue<int> buffer)
-        {
-            Thread.Sleep(this.bakerate);
-            Random r = new Random();
-            int num = r.Next(1, 11);
-
-            lock (bufferLock)
-            {
-                buffer.Enqueue(num);
-                window.ShowCake(num);
-            }
-            
-
-        }
-
-        private void consume(ConcurrentQueue<int> buffer)
-        {
-            Thread.Sleep(this.customerate);
-            lock (bufferLock)
-            {
-                if (buffer.TryDequeue(out int cake))
-                {
-                    if (window.checkCake(cake))
-                        window.hideCake(cake);
-                    else
-                        buffer.Enqueue(cake);
-                }
-            }
-
-
-        }
+        
 
         private void simulator1_Load(object sender, EventArgs e)
         {
