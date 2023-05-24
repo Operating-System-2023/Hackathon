@@ -179,6 +179,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             fileSystemWatcher1 = new FileSystemWatcher();
             cake9 = new PictureBox();
@@ -205,6 +206,7 @@
             label2 = new Label();
             textBox3 = new TextBox();
             panel1 = new Panel();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cake9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cake8).BeginInit();
@@ -351,22 +353,23 @@
             // 
             textBox4.Location = new Point(520, 580);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(200, 39);
+            textBox4.Size = new Size(200, 35);
             textBox4.TabIndex = 34;
             // 
             // textBox2
             // 
             textBox2.Location = new Point(520, 428);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(200, 39);
+            textBox2.Size = new Size(200, 35);
             textBox2.TabIndex = 32;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(520, 357);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(200, 39);
+            textBox1.Size = new Size(200, 35);
             textBox1.TabIndex = 31;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // button1
             // 
@@ -387,7 +390,7 @@
             label7.ForeColor = Color.Black;
             label7.Location = new Point(110, 587);
             label7.Name = "label7";
-            label7.Size = new Size(343, 32);
+            label7.Size = new Size(304, 28);
             label7.TabIndex = 29;
             label7.Text = "average waiting time";
             // 
@@ -398,7 +401,7 @@
             label6.ForeColor = Color.Black;
             label6.Location = new Point(110, 508);
             label6.Name = "label6";
-            label6.Size = new Size(371, 32);
+            label6.Size = new Size(331, 28);
             label6.TabIndex = 28;
             label6.Text = "How many are waiting";
             // 
@@ -409,7 +412,7 @@
             label5.ForeColor = Color.Black;
             label5.Location = new Point(110, 428);
             label5.Name = "label5";
-            label5.Size = new Size(333, 32);
+            label5.Size = new Size(295, 28);
             label5.TabIndex = 27;
             label5.Text = "Percentage capacity";
             // 
@@ -420,7 +423,7 @@
             label1.ForeColor = Color.Black;
             label1.Location = new Point(110, 357);
             label1.Name = "label1";
-            label1.Size = new Size(196, 32);
+            label1.Size = new Size(173, 28);
             label1.TabIndex = 26;
             label1.Text = "Time \\ clock";
             // 
@@ -431,7 +434,7 @@
             label4.ForeColor = Color.RosyBrown;
             label4.Location = new Point(1240, 236);
             label4.Name = "label4";
-            label4.Size = new Size(193, 53);
+            label4.Size = new Size(170, 47);
             label4.TabIndex = 25;
             label4.Text = "bakery";
             // 
@@ -442,7 +445,7 @@
             label3.ForeColor = Color.RosyBrown;
             label3.Location = new Point(194, 236);
             label3.Name = "label3";
-            label3.Size = new Size(249, 53);
+            label3.Size = new Size(223, 47);
             label3.TabIndex = 24;
             label3.Text = "statistics";
             // 
@@ -454,7 +457,7 @@
             label2.ForeColor = Color.Black;
             label2.Location = new Point(629, 23);
             label2.Name = "label2";
-            label2.Size = new Size(549, 124);
+            label2.Size = new Size(480, 108);
             label2.TabIndex = 1;
             label2.Text = "Patisserie";
             // 
@@ -462,7 +465,7 @@
             // 
             textBox3.Location = new Point(520, 501);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(200, 39);
+            textBox3.Size = new Size(200, 35);
             textBox3.TabIndex = 33;
             // 
             // panel1
@@ -474,6 +477,10 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1680, 134);
             panel1.TabIndex = 23;
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
             // 
             // Form2
             // 
@@ -552,5 +559,6 @@
         private TextBox textBox3;
         private Panel panel1;
         private Label label2;
+        private System.Windows.Forms.Timer timer1;
     }
 }
