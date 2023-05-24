@@ -42,7 +42,6 @@
             customerRate = new TextBox();
             start = new Button();
             panel3 = new Panel();
-            simulator1 = new Properties.Simulator();
             panel1 = new Panel();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -74,7 +73,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1162, 128);
+            pictureBox1.Location = new Point(1116, 172);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(461, 493);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -164,27 +163,12 @@
             // panel3
             // 
             panel3.BackColor = Color.RosyBrown;
-            panel3.Controls.Add(simulator1);
             panel3.Controls.Add(start);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 641);
             panel3.Name = "panel3";
             panel3.Size = new Size(1680, 215);
             panel3.TabIndex = 2;
-            // 
-            // simulator1
-            // 
-            simulator1.AutoSize = true;
-            simulator1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            simulator1.AutoValidate = AutoValidate.EnableAllowFocusChange;
-            simulator1.ForeColor = Color.DimGray;
-            simulator1.Location = new Point(0, 0);
-            simulator1.Margin = new Padding(0);
-            simulator1.Name = "simulator1";
-            simulator1.Size = new Size(3545, 1186);
-            simulator1.TabIndex = 1;
-            simulator1.Visible = false;
-            simulator1.Load += simulator1_Load;
             // 
             // panel1
             // 
@@ -201,6 +185,7 @@
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1680, 856);
             Controls.Add(customerRate);
+            Controls.Add(pictureBox1);
             Controls.Add(bakerRate);
             Controls.Add(numCustomers);
             Controls.Add(numBakers);
@@ -208,7 +193,6 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(pictureBox1);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -221,7 +205,6 @@
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -242,6 +225,5 @@
         private TextBox numCustomers;
         private TextBox bakerRate;
         private TextBox customerRate;
-        private Properties.Simulator simulator1;
     }
 }
