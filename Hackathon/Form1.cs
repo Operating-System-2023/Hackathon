@@ -62,8 +62,8 @@ namespace Hackathon
                 bakerate = int.Parse(bakerRate.Text);
                 customerate = int.Parse(customerRate.Text);
                 Form2 window = new Form2(numbakers,numcustomers,bakerate,customerate);
-                Thread t = new Thread(() => window.ShowDialog());
-                t.Start();
+                Thread show = new Thread(() => window.ShowDialog());
+                show.Start();
             }
             catch (Exception xe)
             {

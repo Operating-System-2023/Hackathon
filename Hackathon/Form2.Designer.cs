@@ -1,5 +1,8 @@
-﻿namespace Hackathon
+﻿
+namespace Hackathon
 {
+    using System.Windows.Forms;
+
     partial class Form2
     {
         /// <summary>
@@ -30,6 +33,10 @@
         private object cake8Lock = new object();
         private object cake9Lock = new object();
         private object cake10Lock = new object();
+        void updateGUI(PictureBox cake, bool choice)
+        {
+            cake.Visible = choice;
+        }
         public void ShowCake(int index)
         {
             switch (index)
@@ -77,7 +84,16 @@
                 Monitor.Enter(cakeLock, ref lockTaken);
                 if (lockTaken)
                 {
-                    cake.Visible = true;
+                    if (InvokeRequired)
+                    {
+                        Invoke((MethodInvoker)delegate { updateGUI(cake, true); });
+                    }
+                    else
+                    {
+                        // Do Something
+                        updateGUI(cake, true);
+                    }
+                    
                 }
 
             }
@@ -164,7 +180,16 @@
                 Monitor.Enter(cakeLock, ref lockTaken);
                 if (lockTaken)
                 {
-                    cake.Visible = false;
+                    if (InvokeRequired)
+                    {
+                        Invoke((MethodInvoker)delegate { updateGUI(cake, false); });
+                    }
+                    else
+                    {
+                        // Do Something
+                        updateGUI(cake, false);
+                    }
+
                 }
 
             }
@@ -207,7 +232,6 @@
             textBox3 = new TextBox();
             panel1 = new Panel();
             timer1 = new System.Windows.Forms.Timer(components);
-            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cake9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cake8).BeginInit();
@@ -354,21 +378,21 @@
             // 
             textBox4.Location = new Point(520, 580);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(200, 23);
+            textBox4.Size = new Size(200, 39);
             textBox4.TabIndex = 34;
             // 
             // textBox2
             // 
             textBox2.Location = new Point(520, 428);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(200, 23);
+            textBox2.Size = new Size(200, 39);
             textBox2.TabIndex = 32;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(520, 357);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(200, 23);
+            textBox1.Size = new Size(200, 39);
             textBox1.TabIndex = 31;
             // 
             // button1
@@ -390,7 +414,7 @@
             label7.ForeColor = Color.Black;
             label7.Location = new Point(110, 587);
             label7.Name = "label7";
-            label7.Size = new Size(176, 16);
+            label7.Size = new Size(343, 32);
             label7.TabIndex = 29;
             label7.Text = "average waiting time";
             // 
@@ -401,7 +425,7 @@
             label6.ForeColor = Color.Black;
             label6.Location = new Point(110, 508);
             label6.Name = "label6";
-            label6.Size = new Size(191, 16);
+            label6.Size = new Size(371, 32);
             label6.TabIndex = 28;
             label6.Text = "How many are waiting";
             // 
@@ -412,7 +436,7 @@
             label5.ForeColor = Color.Black;
             label5.Location = new Point(110, 428);
             label5.Name = "label5";
-            label5.Size = new Size(172, 16);
+            label5.Size = new Size(333, 32);
             label5.TabIndex = 27;
             label5.Text = "Percentage capacity";
             // 
@@ -423,7 +447,7 @@
             label1.ForeColor = Color.Black;
             label1.Location = new Point(110, 357);
             label1.Name = "label1";
-            label1.Size = new Size(101, 16);
+            label1.Size = new Size(196, 32);
             label1.TabIndex = 26;
             label1.Text = "Time \\ clock";
             // 
@@ -434,7 +458,7 @@
             label4.ForeColor = Color.RosyBrown;
             label4.Location = new Point(1240, 236);
             label4.Name = "label4";
-            label4.Size = new Size(100, 28);
+            label4.Size = new Size(193, 53);
             label4.TabIndex = 25;
             label4.Text = "bakery";
             // 
@@ -445,7 +469,7 @@
             label3.ForeColor = Color.RosyBrown;
             label3.Location = new Point(194, 236);
             label3.Name = "label3";
-            label3.Size = new Size(127, 28);
+            label3.Size = new Size(249, 53);
             label3.TabIndex = 24;
             label3.Text = "statistics";
             // 
@@ -457,7 +481,7 @@
             label2.ForeColor = Color.Black;
             label2.Location = new Point(629, 23);
             label2.Name = "label2";
-            label2.Size = new Size(277, 62);
+            label2.Size = new Size(549, 124);
             label2.TabIndex = 1;
             label2.Text = "Patisserie";
             // 
@@ -465,7 +489,7 @@
             // 
             textBox3.Location = new Point(520, 501);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(200, 23);
+            textBox3.Size = new Size(200, 39);
             textBox3.TabIndex = 33;
             // 
             // panel1
@@ -482,21 +506,10 @@
             // 
             timer1.Tick += timer1_Tick;
             // 
-            // button2
-            // 
-            button2.Location = new Point(546, 182);
-            button2.Name = "button2";
-            button2.Size = new Size(144, 96);
-            button2.TabIndex = 46;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // Form2
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1680, 856);
-            Controls.Add(button2);
             Controls.Add(cake9);
             Controls.Add(cake8);
             Controls.Add(cake7);
@@ -571,6 +584,5 @@
         private Panel panel1;
         private Label label2;
         private System.Windows.Forms.Timer timer1;
-        private Button button2;
     }
 }

@@ -35,9 +35,11 @@ namespace Hackathon
         private void Form2_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            Thread toCreate = new Thread(() => this.create());
+            toCreate.Start();
         }
 
-        private void create()
+        public void create()
         {
 
 
@@ -46,16 +48,16 @@ namespace Hackathon
             {
                 for (int i = 0; i < this.numbakers; i++)
                 {
-                    //Thread baker = new Thread(() => produce(buffer));
-                    //baker.Start();
+                    Thread baker = new Thread(() => produce(buffer));
+                    baker.Start();
                     produce(buffer);
                 }
-                for (int i = 0; i < this.numcustomers; i++)
-                {
+                //for (int i = 0; i < this.numcustomers; i++)
+                //{
                     //Thread customer = new Thread(() => consume(buffer));
                     //customer.Start();
-                    consume(buffer);
-                }
+                    //consume(buffer);
+                //}
             }
 
 
@@ -63,22 +65,30 @@ namespace Hackathon
         private object bufferLock = new object();
         private void produce(ConcurrentQueue<int> buffer)
         {
-            //Thread.Sleep(this.bakerate);
-            Random r = new Random();
-            int num = r.Next(1, 11);
-
-            lock (bufferLock)
+            Thread.Sleep(this.bakerate);
+            
+            bool lockTaken = false;
+            try
             {
-                buffer.Enqueue(num);
-                ShowCake(num);
-            }
+                Monitor.Enter(bufferLock, ref lockTaken);
+                if (lockTaken)
+                {
+                    Random r = new Random();
+                    int num = r.Next(1, 11);
+                    buffer.Enqueue(num);
+                    ShowCake(num);
 
+                }
+                Monitor.Exit(bufferLock);
+
+            }
+            catch (Exception e) { Console.WriteLine("BUG"); }
 
         }
 
         private void consume(ConcurrentQueue<int> buffer)
         {
-            //Thread.Sleep(this.customerate);
+            Thread.Sleep(this.customerate);
             lock (bufferLock)
             {
                 if (buffer.TryDequeue(out int cake))
@@ -115,9 +125,5 @@ namespace Hackathon
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            create();
-        }
     }
 }
