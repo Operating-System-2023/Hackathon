@@ -120,6 +120,9 @@
   <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>25</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cake9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -17164,7 +17167,7 @@
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA30AAAQ4CAIAAAAy2iK/AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DQAACw0B7QfALAAA/7JJREFUeF7svQWcJMXd//88zz8J3K2NS+vo7p67ro/b6ilwSLAkaCCBQAIEJwmB
+        DAAACwwBP0AiyAAA/7JJREFUeF7svQWcJMXd//88zz8J3K2NS+vo7p67ro/b6ilwSLAkaCCBQAIEJwmB
         EFxCkODucLc7Lrt7e4YEjSDBuVsZ1/5/a2pvWPYOIj8gSH1f7+2trq6uaSn5VFV39f8IxIgR+69asWyT
         K2XDPqVSaXJ9ioHnvlv3GxIM/EulArB3Ff4gdqGEmdwpLwg5CJHH3sViIZcX8gWhUALvfD6fy+XwL2bL
         hn1QvIVKtMhQRPl8eXseNmWzaaBQzJTjzws59Lvo10tCMV966403R7bGRkbCz27f9tyO7W+/9Y9SAV0B

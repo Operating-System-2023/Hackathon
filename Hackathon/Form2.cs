@@ -19,7 +19,9 @@ namespace Hackathon
         private int numcustomers;
         private int bakerate;
         private int customerate;
-        public Form2(int numB,int numC, int rateB, int rateC)
+
+
+        public Form2(int numB, int numC, int rateB, int rateC)
         {
             this.numbakers = numB;
             this.numcustomers = numC;
@@ -33,25 +35,26 @@ namespace Hackathon
         private void Form2_Load(object sender, EventArgs e)
         {
             timer1.Start();
-            create();
-;       }
+        }
 
         private void create()
         {
-            
+
 
             ConcurrentQueue<int> buffer = new ConcurrentQueue<int>();
             while (true)
             {
                 for (int i = 0; i < this.numbakers; i++)
                 {
-                    Thread baker = new Thread(() => produce(buffer));
-                    baker.Start();
+                    //Thread baker = new Thread(() => produce(buffer));
+                    //baker.Start();
+                    produce(buffer);
                 }
                 for (int i = 0; i < this.numcustomers; i++)
                 {
-                    Thread customer = new Thread(() => consume(buffer));
-                    customer.Start();
+                    //Thread customer = new Thread(() => consume(buffer));
+                    //customer.Start();
+                    consume(buffer);
                 }
             }
 
@@ -60,7 +63,7 @@ namespace Hackathon
         private object bufferLock = new object();
         private void produce(ConcurrentQueue<int> buffer)
         {
-            Thread.Sleep(this.bakerate);
+            //Thread.Sleep(this.bakerate);
             Random r = new Random();
             int num = r.Next(1, 11);
 
@@ -75,7 +78,7 @@ namespace Hackathon
 
         private void consume(ConcurrentQueue<int> buffer)
         {
-            Thread.Sleep(this.customerate);
+            //Thread.Sleep(this.customerate);
             lock (bufferLock)
             {
                 if (buffer.TryDequeue(out int cake))
@@ -110,6 +113,11 @@ namespace Hackathon
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            create();
         }
     }
 }
