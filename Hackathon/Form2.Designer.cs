@@ -36,6 +36,34 @@ namespace Hackathon
         void updateGUI(PictureBox cake, bool choice)
         {
             cake.Visible = choice;
+            if (choice)
+            {
+                cakesVisible++;
+            }
+                
+            else
+            {
+                cakesVisible--;
+                waitingNum--;
+                preHide = currentHide;
+               
+                count++;
+                TimeSpan elapsedTime = DateTime.Now - startTime;
+                int seconds = (int)elapsedTime.TotalSeconds;
+                currentHide = seconds;
+
+                sum += currentHide - preHide;
+            }
+                
+        }
+
+        public void updateW()
+        {
+            waitingNum++;
+        }
+        public void updateInprocess()
+        {
+            inProcess++;
         }
         public void ShowCake(int index)
         {
@@ -93,8 +121,8 @@ namespace Hackathon
                         // Do Something
                         updateGUI(cake, true);
                     }
-                    
                 }
+                Monitor.Exit(cakeLock);
 
             }
             catch (Exception e) { Console.WriteLine("BUG"); }
@@ -191,6 +219,7 @@ namespace Hackathon
                     }
 
                 }
+                Monitor.Exit(cakeLock);
 
             }
             catch (Exception e) { Console.WriteLine("BUG"); }
@@ -231,7 +260,7 @@ namespace Hackathon
             label2 = new Label();
             textBox3 = new TextBox();
             panel1 = new Panel();
-            timer1 = new System.Windows.Forms.Timer(components);
+            timer1 = new Timer(components);
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cake9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cake8).BeginInit();
@@ -387,6 +416,7 @@ namespace Hackathon
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(200, 39);
             textBox2.TabIndex = 32;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // textBox1
             // 
@@ -491,6 +521,7 @@ namespace Hackathon
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(200, 39);
             textBox3.TabIndex = 33;
+            textBox3.TextChanged += textBox3_TextChanged;
             // 
             // panel1
             // 
@@ -583,6 +614,6 @@ namespace Hackathon
         private TextBox textBox3;
         private Panel panel1;
         private Label label2;
-        private System.Windows.Forms.Timer timer1;
+        private Timer timer1;
     }
 }

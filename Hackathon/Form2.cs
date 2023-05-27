@@ -19,7 +19,13 @@ namespace Hackathon
         private int numcustomers;
         private int bakerate;
         private int customerate;
-
+        public int cakesVisible;
+        public int waitingNum;
+        public int inProcess;
+        public int currentHide;
+        public int preHide;
+        public int sum = 0;
+        public int count = 0;
 
         public Form2(int numB, int numC, int rateB, int rateC)
         {
@@ -42,29 +48,28 @@ namespace Hackathon
         public void create()
         {
 
-
             ConcurrentQueue<int> buffer = new ConcurrentQueue<int>();
 
-            for (int i = 0; i < this.numbakers; i++)
+            while (true)
             {
-                Thread baker = new Thread(() => produce(buffer));
-                baker.Start();
+                if (waitingNum <= 0)
+                    waitingNum = numcustomers;
+                for (int i = 0; i < this.numbakers; i++)
+                {
+                    ThreadPool.QueueUserWorkItem(state => produce(buffer));
+                }
+                for (int i = 0; i < this.numcustomers; i++)
+                {
+                    ThreadPool.QueueUserWorkItem(state => consume(buffer));
+                }
             }
-            for (int i = 0; i < this.numcustomers; i++)
-            {
-                Thread customer = new Thread(() => consume(buffer));
-                customer.Start();
-            }
-
-            
-
 
         }
         private object bufferLock = new object();
         private void produce(ConcurrentQueue<int> buffer)
         {
+            updateInprocess();
             Thread.Sleep(this.bakerate);
-            
             bool lockTaken = false;
             try
             {
@@ -87,7 +92,6 @@ namespace Hackathon
         private void consume(ConcurrentQueue<int> buffer)
         {
             Thread.Sleep(this.customerate);
-
             bool lockTaken = false;
             try
             {
@@ -96,6 +100,7 @@ namespace Hackathon
                 {
                     if (checkCake(cake))
                         hideCake(cake);
+                    
                     else
                         buffer.Enqueue(cake);
                 }
@@ -121,6 +126,12 @@ namespace Hackathon
             TimeSpan elapsedTime = DateTime.Now - startTime;
             int seconds = (int)elapsedTime.TotalSeconds;
             textBox1.Text = seconds.ToString();
+            textBox2.Text = ((int)((double)cakesVisible / inProcess * 100)).ToString() + "%";
+            textBox3.Text = waitingNum.ToString();
+            if (count == 0)
+                textBox4.Text = ((double)sum / 1).ToString($"F{2}") + " sec";
+            else
+                textBox4.Text = ((double)sum / count).ToString($"F{2}") + " sec";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -128,5 +139,14 @@ namespace Hackathon
 
         }
 
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
