@@ -44,21 +44,19 @@ namespace Hackathon
 
 
             ConcurrentQueue<int> buffer = new ConcurrentQueue<int>();
-            while (true)
+
+            for (int i = 0; i < this.numbakers; i++)
             {
-                for (int i = 0; i < this.numbakers; i++)
-                {
-                    Thread baker = new Thread(() => produce(buffer));
-                    baker.Start();
-                    produce(buffer);
-                }
-                //for (int i = 0; i < this.numcustomers; i++)
-                //{
-                    //Thread customer = new Thread(() => consume(buffer));
-                    //customer.Start();
-                    //consume(buffer);
-                //}
+                Thread baker = new Thread(() => produce(buffer));
+                baker.Start();
             }
+            for (int i = 0; i < this.numcustomers; i++)
+            {
+                Thread customer = new Thread(() => consume(buffer));
+                customer.Start();
+            }
+
+            
 
 
         }
@@ -70,11 +68,11 @@ namespace Hackathon
             bool lockTaken = false;
             try
             {
+                Random r = new Random();
+                int num = r.Next(1, 11);
                 Monitor.Enter(bufferLock, ref lockTaken);
                 if (lockTaken)
                 {
-                    Random r = new Random();
-                    int num = r.Next(1, 11);
                     buffer.Enqueue(num);
                     ShowCake(num);
 
@@ -89,8 +87,11 @@ namespace Hackathon
         private void consume(ConcurrentQueue<int> buffer)
         {
             Thread.Sleep(this.customerate);
-            lock (bufferLock)
+
+            bool lockTaken = false;
+            try
             {
+                Monitor.Enter(bufferLock, ref lockTaken);
                 if (buffer.TryDequeue(out int cake))
                 {
                     if (checkCake(cake))
@@ -98,8 +99,10 @@ namespace Hackathon
                     else
                         buffer.Enqueue(cake);
                 }
-            }
+                Monitor.Exit(bufferLock);
 
+            }
+            catch (Exception e) { Console.WriteLine("BUG"); }
 
         }
 
